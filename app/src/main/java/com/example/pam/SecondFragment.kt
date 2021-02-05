@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
 /**
@@ -24,8 +28,12 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.findViewById<TextView>(R.id.textview_second).text = arguments?.getString("data") ?: ""
+
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            val text : String = view.findViewById<EditText>(R.id.textview_second).text.toString()
+            val bundle = bundleOf("data" to text)
+            view.findNavController().navigate(R.id.FirstFragment, bundle)
         }
     }
 }
